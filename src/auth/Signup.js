@@ -12,11 +12,13 @@ const Signup = () => {
     password: "rrrrrrr",
     buttonText: "Submit",
   });
+
+  const { name, email, password, buttonText } = values;
+
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  const { name, email, password, buttonText } = values;
   const clickSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, button: "Submitting" });
@@ -77,7 +79,6 @@ const Signup = () => {
     <Layout>
       <div className="col-d-6 offset-md-3">
         <ToastContainer />
-        {JSON.stringify({ name, email, password })}
         <h1 className="p-5 text-center">Signup</h1>
         {signupFrom()}
       </div>

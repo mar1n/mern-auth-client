@@ -70,7 +70,6 @@ const Signin = () => {
     <Layout>
       <div className="col-d-6 offset-md-3">
         <ToastContainer />
-        {JSON.stringify({ email, password })}
         <h1 className="p-5 text-center">Signup</h1>
         {signinFrom()}
       </div>
