@@ -3,24 +3,39 @@ import { Link, Redirect } from "react-router-dom";
 import Layout from "../core/Layout";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/react-toastify.esm";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const Signup = () => {
   const [values, setValues] = useState({
     name: "ryan",
-    email: "szym0nd4widowicz@gmail.com",
+    email: "cykcykacz@gmail.com",
     password: "rrrrrrr",
     buttonText: "Submit",
   });
   const handleChange = (name) => (event) => {
-    //
+    setValues({ ...values, [name]: event.target.value });
   };
 
   const { name, email, password, buttonText } = values;
-  const clickSubmit = (event) => (
-    //
-    <></>
-  );
+  const clickSubmit = (event) => {
+    event.preventDefault();
+    setValues({ ...values, button: "Submitting" });
+    axios({
+      method: "POST",
+      url: `${process.env.REACT_APP_API}/signup`,
+      data: { name, email, password },
+    }).then((response) => {
+      console.log("SIGNUP SUCCESS", response);
+      setValues({ ...values, name: "", email: "", password: "", buttonText: "Submitted" });
+      toast.success(response.data.message);
+    })
+    .catch(error => {
+      console.log('SIGNUP ERROR', error.response.data);
+      setValues({ ...values, buttonText: 'Submit' })
+      toast.error(error.response.data.error)
+    })
+  };
+
   const signupFrom = () => (
     <form>
       <div className="form-group">
@@ -62,6 +77,7 @@ const Signup = () => {
     <Layout>
       <div className="col-d-6 offset-md-3">
         <ToastContainer />
+        {JSON.stringify({ name, email, password })}
         <h1 className="p-5 text-center">Signup</h1>
         {signupFrom()}
       </div>
