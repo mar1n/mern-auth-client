@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../core/Layout";
 import axios from "axios";
-import { isAuth, getCookie, signout } from "../auth/helpers";
+import { isAuth, getCookie, signout, updateUser } from "../auth/helpers";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
@@ -53,23 +53,26 @@ const Private = ({ history }) => {
     event.preventDefault();
     setValues({ ...values, button: "Submitting" });
     axios({
-      method: "POST",
-      url: `${process.env.REACT_APP_API}/signup`,
-      data: { name, email, password },
+      method: "PUT",
+      url: `${process.env.REACT_APP_API}/user/update`,
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      data: { name, password },
     })
       .then((response) => {
-        console.log("SIGNUP SUCCESS", response);
-        setValues({
-          ...values,
-          name: "",
-          email: "",
-          password: "",
-          buttonText: "Submitted",
+        console.log("PRIVATE PROFILE UPDATE SUCCESS", response);
+        updateUser(response, () => {
+          setValues({
+            ...values,
+            buttonText: "Submitted",
+          });
+          toast.success('Profile updated successfullt');
         });
-        toast.success(response.data.message);
+        
       })
       .catch((error) => {
-        console.log("SIGNUP ERROR", error.response.data);
+        console.log("PRIVATE PROFILE UPDATE ERROR", error.response.data.error);
         setValues({ ...values, buttonText: "Submit" });
         toast.error(error.response.data.error);
       });
