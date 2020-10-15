@@ -6,7 +6,7 @@ import { authenticate, isAuth } from "./helpers";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
-const Signin = () => {
+const Signin = ({ history }) => {
   const [values, setValues] = useState({
     email: "cykcykacz@gmail.com",
     password: "rrrrrrr",
@@ -37,7 +37,10 @@ const Signin = () => {
             password: "",
             buttonText: "Submitted",
           });
-          toast.success(`Hey ${response.data.user.name}, Welcome back!`);
+          // toast.success(`Hey ${response.data.user.name}, Welcome back!`);
+          isAuth() && isAuth().role === "admin"
+            ? history.push("/admin")
+            : history.push("/private");
         });
       })
       .catch((error) => {
@@ -76,7 +79,7 @@ const Signin = () => {
   );
   return (
     <Layout>
-        {JSON.stringify(isAuth())}
+      {JSON.stringify(isAuth())}
       <div className="col-d-6 offset-md-3">
         <ToastContainer />
         {isAuth() ? <Redirect to="/" /> : null}
