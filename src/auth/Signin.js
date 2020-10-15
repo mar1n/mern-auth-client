@@ -80,7 +80,7 @@ const Signin = () => {
       <div className="col-d-6 offset-md-3">
         <ToastContainer />
         {isAuth() ? <Redirect to="/" /> : null}
-        <h1 className="p-5 text-center">Signup</h1>
+        <h1 className="p-5 text-center">Signin</h1>
         {signinFrom()}
       </div>
     </Layout>
