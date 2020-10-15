@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
 import Layout from "../core/Layout";
 import axios from "axios";
-import { isAuth } from "../auth/helpers";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
@@ -51,7 +49,7 @@ const Private = () => {
     <form>
       <div className="form-group">
         <label className="text-muted">Role</label>
-        <input value={role} type="text" className="form-control" />
+        <input defaultValue={role} type="text" className="form-control" />
       </div>
       <div className="form-group">
         <label className="text-muted">Name</label>
@@ -65,7 +63,7 @@ const Private = () => {
 
       <div className="form-group">
         <label className="text-muted">Email</label>
-        <input value={email} type="email" className="form-control" />
+        <input defaultValue={email} type="email" className="form-control" />
       </div>
 
       <div className="form-group">
