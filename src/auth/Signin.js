@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Layout from "../core/Layout";
 import axios from "axios";
 import { authenticate, isAuth } from "./helpers";
@@ -79,12 +79,15 @@ const Signin = ({ history }) => {
   );
   return (
     <Layout>
-      {JSON.stringify(isAuth())}
       <div className="col-d-6 offset-md-3">
         <ToastContainer />
         {isAuth() ? <Redirect to="/" /> : null}
         <h1 className="p-5 text-center">Signin</h1>
         {signinFrom()}
+        <br/>
+        <Link to="/auth/password/forgot" className="btn btn-sm btn-outline-danger">
+          Forgot Password
+        </Link>
       </div>
     </Layout>
   );
