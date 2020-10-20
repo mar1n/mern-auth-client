@@ -4,6 +4,7 @@ import Layout from "../core/Layout";
 import axios from "axios";
 import { authenticate, isAuth } from "./helpers";
 import { ToastContainer, toast } from "react-toastify";
+import Google from "./Google";
 import "react-toastify/dist/ReactToastify.min.css";
 
 const Signin = ({ history }) => {
@@ -83,6 +84,7 @@ const Signin = ({ history }) => {
         <ToastContainer />
         {isAuth() ? <Redirect to="/" /> : null}
         <h1 className="p-5 text-center">Signin</h1>
+        <Google />
         {signinFrom()}
         <br/>
         <Link to="/auth/password/forgot" className="btn btn-sm btn-outline-danger">
