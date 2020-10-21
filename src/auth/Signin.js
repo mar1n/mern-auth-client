@@ -5,6 +5,7 @@ import axios from "axios";
 import { authenticate, isAuth } from "./helpers";
 import { ToastContainer, toast } from "react-toastify";
 import Google from "./Google";
+import Facebook from "./Facebook";
 import "react-toastify/dist/ReactToastify.min.css";
 
 const Signin = ({ history }) => {
@@ -20,14 +21,14 @@ const Signin = ({ history }) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  const informParent = response => {
+  const informParent = (response) => {
     authenticate(response, () => {
       // toast.success(`Hey ${response.data.user.name}, Welcome back!`);
       isAuth() && isAuth().role === "admin"
         ? history.push("/admin")
         : history.push("/private");
     });
-  }
+  };
 
   const clickSubmit = (event) => {
     event.preventDefault();
@@ -89,14 +90,18 @@ const Signin = ({ history }) => {
   );
   return (
     <Layout>
-      <div className="col-d-6 offset-md-3">
+      <div className="col-md-6 offset-md-3">
         <ToastContainer />
         {isAuth() ? <Redirect to="/" /> : null}
         <h1 className="p-5 text-center">Signin</h1>
         <Google informParent={informParent} />
+        <Facebook informParent={informParent} />
         {signinFrom()}
-        <br/>
-        <Link to="/auth/password/forgot" className="btn btn-sm btn-outline-danger">
+        <br />
+        <Link
+          to="/auth/password/forgot"
+          className="btn btn-sm btn-outline-danger"
+        >
           Forgot Password
         </Link>
       </div>
